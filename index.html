@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Sell My Exotic Car Fast | Dealer Cash Offer Network</title>
+  <meta name="description" content="Get a fast dealer cash offer for your exotic car. Enter your VIN to decode Year/Make/Model, answer a few questions, and share photos or a video to get matched with verified buyers." />
+  <meta name="robots" content="index,follow" />
+
+  <meta property="og:title" content="Sell My Exotic Car Fast | Dealer Cash Offer Network" />
+  <meta property="og:description" content="Enter your VIN, answer a few questions, and get matched with dealer buyers who can make a cash offer." />
+  <meta property="og:type" content="website" />
+
+  <link rel="icon" href="./icon.png" />
+  <link rel="preconnect" href="https://vpic.nhtsa.dot.gov" />
+  <link rel="stylesheet" href="./styles.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Sell My Exotic Fast",
+    "url": "",
+    "logo": "./icon.png",
+    "sameAs": ["https://qureshimedia.com/"]
+  }
+  </script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to form</a>
+
+  <header class="site-header" role="banner">
+    <div class="brand">
+      <img class="brand__mark" src="./icon.png" alt="" width="32" height="32" />
+      <div class="brand__text">
+        <div class="brand__name">Sell My Exotic</div>
+        <div class="brand__tag">FAST</div>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <span class="badge" title="We are not a dealer. We connect you with independent dealer buyers.">Dealer Offer Network</span>
+      <button class="ghost-btn" type="button" id="openHelp" aria-haspopup="dialog" aria-controls="helpDialog">
+        How it works
+      </button>
+    </div>
+  </header>
+
+  <main id="main" class="app" role="main">
+    <section class="hero">
+      <h1>Sell My Exotic Car Fast</h1>
+      <p class="subhead">
+        Enter your VIN to decode your vehicle, then answer a few quick questions so a dealer buyer can send a cash offer.
+      </p>
+
+      <ul class="hero-points" aria-label="Key benefits">
+        <li>Nationwide dealer buyer network</li>
+        <li>Fast intake (mobile-first)</li>
+        <li>No obligation to accept an offer</li>
+      </ul>
+    </section>
+
+    <section class="flow" aria-label="Vehicle intake">
+      <div class="stepper" role="navigation" aria-label="Progress">
+        <ol class="stepper__list" id="stepperList">
+          <li class="stepper__item" data-step="1"><button type="button" class="stepper__btn">VIN</button></li>
+          <li class="stepper__item" data-step="2"><button type="button" class="stepper__btn">Vehicle</button></li>
+          <li class="stepper__item" data-step="3"><button type="button" class="stepper__btn">Ownership</button></li>
+          <li class="stepper__item" data-step="4"><button type="button" class="stepper__btn">Location</button></li>
+          <li class="stepper__item" data-step="5"><button type="button" class="stepper__btn">Contact</button></li>
+          <li class="stepper__item" data-step="6"><button type="button" class="stepper__btn">Media</button></li>
+          <li class="stepper__item" data-step="7"><button type="button" class="stepper__btn">Review</button></li>
+        </ol>
+        <div class="stepper__bar" aria-hidden="true"><div class="stepper__barFill" id="stepperBarFill"></div></div>
+      </div>
+
+      <form id="smefForm" novalidate>
+        <!-- STEP 1: VIN -->
+        <section class="step" data-step="1" aria-label="VIN decode">
+          <div class="panel">
+            <div class="panel__head">
+              <h2>Enter your VIN</h2>
+              <p class="muted">17 characters. We’ll decode Year / Make / Model using the NHTSA VIN decoder.</p>
+            </div>
+
+            <div class="vin-row">
+              <div class="vin-box">
+                <label class="label" for="vin">VIN</label>
+                <input
+                  id="vin"
+                  name="vin"
+                  inputmode="latin"
+                  autocomplete="off"
+                  autocapitalize="characters"
+                  spellcheck="false"
+                  maxlength="17"
+                  placeholder="e.g. 1HGCM82633A123456"
+                  required
+                />
+                <div class="field-hint" id="vinHint">No I, O, or Q. Letters & numbers only.</div>
+                <div class="field-error" id="vinError" aria-live="polite"></div>
+
+                <div class="vin-actions">
+                  <button type="button" class="primary-btn" id="decodeVinBtn">
+                    Decode VIN
+                  </button>
+                  <button type="button" class="secondary-btn" id="pasteVinBtn" title="Paste VIN">
+                    Paste
+                  </button>
+                </div>
+              </div>
+
+              <button type="button" class="chat-bubble" id="openChat" aria-label="Chat with SMEF (Sell My Exotic Fast)">
+                <span class="chat-bubble__dot" aria-hidden="true"></span>
+                <span class="chat-bubble__text">Ask SMEF</span>
+              </button>
+            </div>
+
+            <div class="decode-status" id="decodeStatus" aria-live="polite"></div>
+
+            <div class="decoded-card" id="decodedCard" hidden>
+              <div class="decoded-card__top">
+                <div>
+                  <div class="decoded-title" id="decodedTitle">Vehicle found</div>
+                  <div class="decoded-sub" id="decodedSub">Verify details below.</div>
+                </div>
+                <span class="pill" id="decodeSourcePill" title="Powered by NHTSA vPIC">NHTSA</span>
+              </div>
+
+              <div class="decoded-grid">
+                <div class="kv"><div class="k">Year</div><div class="v" id="kvYear">—</div></div>
+                <div class="kv"><div class="k">Make</div><div class="v" id="kvMake">—</div></div>
+                <div class="kv"><div class="k">Model</div><div class="v" id="kvModel">—</div></div>
+                <div class="kv"><div class="k">Trim</div><div class="v" id="kvTrim">—</div></div>
+              </div>
+
+              <p class="muted small">You can edit these details on the next step.</p>
+            </div>
+
+            <details class="small-details">
+              <summary>Don’t have your VIN handy?</summary>
+              <p class="muted">
+                You can still continue. We’ll ask for Year/Make/Model on the next step.
+              </p>
+              <button type="button" class="secondary-btn" id="continueNoVinBtn">Continue without VIN</button>
+            </details>
+          </div>
+
+          <div class="nav">
+            <div></div>
+            <button type="button" class="primary-btn" data-next>Next</button>
+          </div>
+        </section>
+
+        <!-- STEP 2: Vehicle details -->
+        <section class="step" data-step="2" aria-label="Vehicle details" hidden>
+          <div class="panel">
+            <div class="panel__head">
+              <h2>Vehicle details</h2>
+              <p class="muted">Confirm the basics and add what a dealer needs to price the car.</p>
+            </div>
+
+            <div class="grid-2">
+              <div class="field">
+                <label class="label" for="year">Year</label>
+                <input id="year" name="year" inputmode="numeric" placeholder="e.g. 2020" required />
+                <div class="field-error" data-error-for="year"></div>
+              </div>
+
+              <div class="field">
+                <label class="label" for="make">Make</label>
+                <input id="make" name="make" placeholder="e.g. Ferrari" required />
+                <div class="field-error" data-error-for="make"></div>
+              </div>
+
+              <div class="field">
+                <label class="label" for="model">Model</label>
+                <input id="model" name="model" placeholder="e.g. 488 GTB" required />
+                <div class="field-error" data-error-for="model"></div>
+              </div>
+
+              <div class="field">
+                <label class="label" for="trim">Trim (optional)</label>
+                <input id="trim" name="trim" placeholder="e.g. Spider / Coupe / Base" />
+              </div>
+
+              <div class="field">
+                <label class="label" for="mileage">Mileage</label>
+                <input id="mileage" name="mileage" inputmode="numeric" placeholder="e.g. 12,450" />
+              </div>
+
+              <div class="field">
+                <label class="label" for="condition">Overall condition</label>
+                <select id="condition" name="condition" required>
+                  <option value="" selected disabled>Select…</option>
+                  <option>Excellent</option>
+                  <option>Good</option>
+                  <option>Fair</option>
+                  <option>Poor</option>
+                </select>
+                <div class="field-error" data-error-for="condition"></div>
+              </div>
+
+              <div class="field">
+                <label class="label" for="accident">Accident history</label>
+                <select id="accident" name="accident" required>
+                  <option value="" selected disabled>Select…</option>
+                  <option>No accidents / clean history</option>
+                  <option>Minor accident(s)</option>
+                  <option>Major accident(s)</option>
+                  <option>Not sure</option>
+                </select>
+                <div class="field-error" data-error-for="accident"></div>
+              </div>
+
+              <div class="field">
+                <label class="label" for="mods">Modifications</label>
+                <select id="mods" name="mods" required>
+                  <option value="" selected disabled>Select…</option>
+                  <option>Stock</option>
+                  <option>Light mods (wheels/exhaust/tune)</option>
+                  <option>Heavily modified</option>
+                  <option>Not sure</option>
+                </select>
+                <div class="field-error" data-error-for="mods"></div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label" for="notes">Anything else a buyer should know? (optional)</label>
+              <textarea id="notes" name="notes" rows="4" placeholder="Example: full PPF, recent service, carbon buckets, two keys, etc."></textarea>
+            </div>
+          </div>
+
+          <div class="nav">
+            <button type="button" class="secondary-btn" data-prev>Back</button>
+            <button type="button" class="primary-btn" data-next>Next</button>
+          </div>
+        </section>
+
+        <!-- STEP 3: Ownership -->
+        <section class="step" data-step="3" aria-label="Ownership & payoff" hidden>
+          <div class="panel">
+            <div class="panel__head">
+              <h2>Title & ownership</h2>
+              <p class="muted">This helps a dealer understand how fast the transaction can close.</p>
+            </div>
+
+            <fieldset class="field">
+              <legend class="label">Do you have the title?</legend>
+              <div class="radio-grid">
+                <label class="radio"><input type="radio" name="title_status" value="Title in hand" required /> <span>Title in hand</span></label>
+                <label class="radio"><input type="radio" name="title_status" value="Financed / Loan" required /> <span>Financed / Loan</span></label>
+                <label class="radio"><input type="radio" name="title_status" value="Lease" required /> <span>Lease</span></label>
+                <label class="radio"><input type="radio" name="title_status" value="Other" required /> <span>Other</span></label>
+              </div>
+              <div class="field-error" data-error-for="title_status"></div>
+            </fieldset>
+
+            <div id="loanFields" class="grid-2" hidden>
+              <div class="field">
+                <label class="label" for="lender">Lender (optional)</label>
+                <input id="lender" name="lender" placeholder="e.g. Porsche Financial / Chase / USAA" />
+              </div>
+              <div class="field">
+                <label class="label" for="payoff">Estimated payoff (optional)</label>
+                <input id="payoff" name="payoff" inputmode="decimal" placeholder="e.g. 84,500" />
+              </div>
+            </div>
+
+            <fieldset class="field">
+              <legend class="label">How soon are you looking to sell?</legend>
+              <div class="radio-grid">
+                <label class="radio"><input type="radio" name="timeline" value="ASAP (0–7 days)" required /> <span>ASAP (0–7 days)</span></label>
+                <label class="radio"><input type="radio" name="timeline" value="1–2 weeks" required /> <span>1–2 weeks</span></label>
+                <label class="radio"><input type="radio" name="timeline" value="Within 30 days" required /> <span>Within 30 days</span></label>
+                <label class="radio"><input type="radio" name="timeline" value="Just exploring" required /> <span>Just exploring</span></label>
+              </div>
+              <div class="field-error" data-error-for="timeline"></div>
+            </fieldset>
+          </div>
+
+          <div class="nav">
+            <button type="button" class="secondary-btn" data-prev>Back</button>
+            <button type="button" class="primary-btn" data-next>Next</button>
+          </div>
+        </section>
+
+        <!-- STEP 4: Location -->
+        <section class="step" data-step="4" aria-label="Location" hidden>
+          <div class="panel">
+            <div class="panel__head">
+              <h2>Where is the car located?</h2>
+              <p class="muted">We use ZIP to route your request to the right buyer coverage area.</p>
+            </div>
+
+            <div class="grid-2">
+              <div class="field">
+                <label class="label" for="zip">ZIP code</label>
+                <input id="zip" name="zip" inputmode="numeric" maxlength="5" placeholder="e.g. 10001" required />
+                <div class="field-hint" id="zipHint">We’ll auto-fill city & state.</div>
+                <div class="field-error" data-error-for="zip"></div>
+              </div>
+
+              <div class="field">
+                <label class="label" for="city">City</label>
+                <input id="city" name="city" placeholder="City" readonly />
+              </div>
+
+              <div class="field">
+                <label class="label" for="state">State</label>
+                <input id="state" name="state" placeholder="State" readonly />
+              </div>
+
+              <div class="field">
+                <label class="label" for="driveable">Is it drivable?</label>
+                <select id="driveable" name="driveable" required>
+                  <option value="" selected disabled>Select…</option>
+                  <option>Yes</option>
+                  <option>No</option>
+                  <option>Not sure</option>
+                </select>
+                <div class="field-error" data-error-for="driveable"></div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label" for="pickup">Pickup preference (optional)</label>
+              <select id="pickup" name="pickup">
+                <option value="" selected>Not sure / discuss later</option>
+                <option>Buyer arranges enclosed transport</option>
+                <option>I can bring it to a dealer</option>
+                <option>Local pickup only</option>
+              </select>
+            </div>
+
+            <div class="decode-status" id="zipStatus" aria-live="polite"></div>
+          </div>
+
+          <div class="nav">
+            <button type="button" class="secondary-btn" data-prev>Back</button>
+            <button type="button" class="primary-btn" data-next>Next</button>
+          </div>
+        </section>
+
+        <!-- STEP 5: Contact -->
+        <section class="step" data-step="5" aria-label="Contact information" hidden>
+          <div class="panel">
+            <div class="panel__head">
+              <h2>How should we reach you?</h2>
+              <p class="muted">To protect your time, we only share your contact info with dealers who are ready to engage.</p>
+            </div>
+
+            <div class="grid-2">
+              <div class="field">
+                <label class="label" for="full_name">Name</label>
+                <input id="full_name" name="full_name" autocomplete="name" placeholder="Your name" required />
+                <div class="field-error" data-error-for="full_name"></div>
+              </div>
+
+              <div class="field">
+                <label class="label" for="mobile">Mobile</label>
+                <input id="mobile" name="mobile" type="tel" inputmode="tel" autocomplete="tel" placeholder="(555) 555-5555" required />
+                <div class="field-hint">We’ll text you to confirm details.</div>
+                <div class="field-error" data-error-for="mobile"></div>
+              </div>
+
+              <div class="field">
+                <label class="label" for="email">Email</label>
+                <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@email.com" required />
+                <div class="field-error" data-error-for="email"></div>
+              </div>
+
+              <div class="field">
+                <label class="label" for="contact_pref">Preferred contact</label>
+                <select id="contact_pref" name="contact_pref" required>
+                  <option value="" selected disabled>Select…</option>
+                  <option>Text</option>
+                  <option>Call</option>
+                  <option>Email</option>
+                </select>
+                <div class="field-error" data-error-for="contact_pref"></div>
+              </div>
+            </div>
+
+            <div class="consent">
+              <label class="check">
+                <input type="checkbox" id="consent" name="consent" required />
+                <span>
+                  I agree to be contacted about my vehicle by Sell My Exotic Fast and participating dealer buyers (calls/texts/emails).
+                </span>
+              </label>
+              <div class="field-error" data-error-for="consent"></div>
+              <p class="muted small">
+                We are not a dealership. We connect you with independent dealer buyers who may make a cash offer.
+              </p>
+            </div>
+          </div>
+
+          <div class="nav">
+            <button type="button" class="secondary-btn" data-prev>Back</button>
+            <button type="button" class="primary-btn" data-next>Next</button>
+          </div>
+        </section>
+
+        <!-- STEP 6: Media -->
+        <section class="step" data-step="6" aria-label="Photos and video" hidden>
+          <div class="panel">
+            <div class="panel__head">
+              <h2>Photos / video</h2>
+              <p class="muted">Media helps buyers move faster. Upload up to 50 photos and/or a short 360° video (about 1 minute).</p>
+            </div>
+
+            <div class="grid-2">
+              <div class="field">
+                <label class="label" for="photos">Upload photos (max 50)</label>
+                <input id="photos" name="photos" type="file" accept="image/*" multiple />
+                <div class="field-hint" id="photosHint">You can select multiple images.</div>
+                <div class="field-error" data-error-for="photos"></div>
+                <div class="file-summary" id="photosSummary" aria-live="polite"></div>
+              </div>
+
+              <div class="field">
+                <label class="label" for="video">Upload video (optional)</label>
+                <input id="video" name="video" type="file" accept="video/*" />
+                <div class="field-hint">Tip: 360° walkaround + cold start. Keep it around 60 seconds.</div>
+                <div class="file-summary" id="videoSummary" aria-live="polite"></div>
+              </div>
+            </div>
+
+            <div class="divider"><span>or</span></div>
+
+            <div class="field">
+              <label class="label" for="media_link">Share a Dropbox / Google Drive link (optional)</label>
+              <input id="media_link" name="media_link" type="url" inputmode="url" placeholder="Paste a share link (no password, please)" />
+              <div class="field-hint">Make sure link access is set to “Anyone with the link can view”.</div>
+            </div>
+
+            <details class="small-details">
+              <summary>What should I capture in the 360° video?</summary>
+              <ul class="muted">
+                <li>Slow walkaround (all sides) + wheels/tires</li>
+                <li>Interior: dash, seats, headliner, screens, odometer</li>
+                <li>Engine bay (if applicable) + cold start</li>
+                <li>Any imperfections (rock chips, curb rash, scratches)</li>
+              </ul>
+            </details>
+          </div>
+
+          <div class="nav">
+            <button type="button" class="secondary-btn" data-prev>Back</button>
+            <button type="button" class="primary-btn" data-next>Next</button>
+          </div>
+        </section>
+
+        <!-- STEP 7: Review -->
+        <section class="step" data-step="7" aria-label="Review and submit" hidden>
+          <div class="panel">
+            <div class="panel__head">
+              <h2>Review</h2>
+              <p class="muted">Confirm details below. You can tap any section to edit.</p>
+            </div>
+
+            <div class="review" id="reviewBlock" aria-live="polite"></div>
+
+            <div class="small-print">
+              <p class="muted small">
+                By submitting, you authorize Sell My Exotic Fast to share your vehicle information with participating dealer buyers for the purpose of receiving purchase offers.
+                If a dealer purchases a vehicle from our introduction, the dealer may pay us a referral success fee.
+              </p>
+              <p class="muted small">
+                VIN decoding uses the public NHTSA vPIC API. Data may be incomplete for some vehicles.
+              </p>
+            </div>
+
+            <div class="submit-row">
+              <button type="submit" class="primary-btn primary-btn--xl" id="submitBtn">
+                Request Cash Offer
+              </button>
+              <div class="decode-status" id="submitStatus" aria-live="polite"></div>
+              <div class="muted small" id="devNote" hidden></div>
+            </div>
+          </div>
+
+          <div class="nav">
+            <button type="button" class="secondary-btn" data-prev>Back</button>
+            <button type="button" class="secondary-btn" id="saveDraftBtn">Save draft</button>
+          </div>
+        </section>
+
+        <!-- Success -->
+        <section class="step" data-step="success" aria-label="Success" hidden>
+          <div class="panel panel--success">
+            <h2>Done — we’ll be in touch ASAP</h2>
+            <p class="muted">
+              We received your details. A dealer buyer from our network will follow up shortly to confirm anything needed and discuss next steps.
+            </p>
+
+            <div class="success-actions">
+              <button type="button" class="secondary-btn" id="startOverBtn">Start over</button>
+              <button type="button" class="secondary-btn" id="downloadJsonBtn">Download submission (JSON)</button>
+            </div>
+
+            <p class="muted small">
+              Want to move faster? Reply to any text/email we send with extra photos or a link to your media.
+            </p>
+          </div>
+        </section>
+      </form>
+    </section>
+
+    <section class="below-fold" aria-label="More information">
+      <div class="grid-3">
+        <div class="info-card">
+          <h3>How it works</h3>
+          <ol class="muted">
+            <li>Enter VIN (auto-decodes basics)</li>
+            <li>Answer a few dealer pricing questions</li>
+            <li>Share photos/video</li>
+            <li>Get connected to dealer buyers</li>
+          </ol>
+        </div>
+
+        <div class="info-card">
+          <h3>Who makes the offer?</h3>
+          <p class="muted">
+            Offers come from independent dealer buyers in our network — not from Sell My Exotic Fast.
+            You choose if you want to proceed.
+          </p>
+        </div>
+
+        <div class="info-card">
+          <h3>What we ask for</h3>
+          <p class="muted">
+            Title/loan status, mileage, condition, location, and good media. This is the minimum a real buyer needs to price accurately.
+          </p>
+        </div>
+      </div>
+
+      <details class="faq">
+        <summary>FAQ</summary>
+        <div class="faq__body">
+          <h4>Is this a dealership?</h4>
+          <p class="muted">No. We are a lead-generation and routing platform. Dealers make offers directly.</p>
+
+          <h4>Do I have to accept an offer?</h4>
+          <p class="muted">No. You can decline any offer. There’s no obligation to sell.</p>
+
+          <h4>How do you make money?</h4>
+          <p class="muted">If a dealer purchases a vehicle from our introduction, the dealer may pay us a referral success fee.</p>
+        </div>
+      </details>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div>Made in NYC. Another QURESHI Media LLC project. Independent.</div>
+    <div>© 2026 <a href="https://qureshimedia.com/" target="_blank" rel="noopener">qureshimedia.com</a></div>
+  </footer>
+
+  <!-- Help dialog -->
+  <dialog class="dialog" id="helpDialog" aria-labelledby="helpTitle">
+    <div class="dialog__head">
+      <h2 id="helpTitle">How it works</h2>
+      <button type="button" class="icon-btn" id="closeHelp" aria-label="Close">✕</button>
+    </div>
+    <div class="dialog__body">
+      <ol class="muted">
+        <li><strong>Enter VIN</strong> to decode Year/Make/Model.</li>
+        <li><strong>Answer quick questions</strong> (mileage, condition, title/loan, location).</li>
+        <li><strong>Share media</strong> so dealers can price accurately.</li>
+        <li><strong>Get routed</strong> to dealer buyers who can make a cash offer.</li>
+      </ol>
+      <p class="muted small">Tip: You can also use the “Ask SMEF” chat bubble to intake by conversation.</p>
+    </div>
+  </dialog>
+
+  <!-- SMEF Chat -->
+  <aside class="chat" id="chatPanel" aria-label="SMEF chat" hidden>
+    <div class="chat__head">
+      <div class="chat__title">
+        <span class="dot" aria-hidden="true"></span>
+        SMEF <span class="muted small">(Sell My Exotic Fast)</span>
+      </div>
+      <button type="button" class="icon-btn" id="closeChat" aria-label="Close chat">✕</button>
+    </div>
+
+    <div class="chat__body" id="chatBody" role="log" aria-live="polite" aria-relevant="additions"></div>
+
+    <form class="chat__composer" id="chatForm">
+      <input id="chatInput" type="text" placeholder="Type here…" autocomplete="off" />
+      <button class="primary-btn" type="submit">Send</button>
+    </form>
+  </aside>
+
+  <script src="./app.js"></script>
+</body>
+</html>
