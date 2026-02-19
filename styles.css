@@ -606,9 +606,13 @@ input[readonly]{ opacity:.85; }
   border: 1px solid rgba(255,255,255,.16);
   border-radius: 18px;
   box-shadow: var(--shadow);
-  display:flex;
-  flex-direction:column;
   z-index: 80;
+}
+
+.chat:not([hidden]){
+  display: flex;
+  flex-direction: column;
+}
 }
 .chat__head{
   display:flex;
